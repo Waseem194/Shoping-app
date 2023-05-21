@@ -1,8 +1,11 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-const Header = () => {
+
+const Navbar = ({ cart }) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light  bg-white py-3 shadow-sm">
@@ -24,9 +27,7 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
+                <Link to="/">Home</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
@@ -47,17 +48,19 @@ const Header = () => {
             </ul>
             <div className="buttons">
               <Link to="/login" className="btn btn-outline-dark">
-              <i class="fa-solid fa-user-plus"></i>
+                <FontAwesomeIcon icon={faUser} />
                 Login
               </Link>
               <Link to="/Register" className="btn btn-outline-dark ms-2">
-                <i class="fa fa-user-plus me-1"></i>
+                <FontAwesomeIcon icon={faUser} />
                 Register
               </Link>
-              <a href="" className="btn btn-outline-dark ms-2">
-                <i class="fa fa-shopping-cart me-1"></i>
-                Cart(0)
-              </a>
+              <Link to="/cart">
+                <Button variant="secondary">
+                  <FontAwesomeIcon icon={faCartShopping} className="pe-2" />
+                  <span>Cart({cart.length})</span>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -66,4 +69,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
