@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 const Header = () => {
   return (
@@ -46,14 +46,14 @@ const Header = () => {
               </li>
             </ul>
             <div className="buttons">
-              <a href="" className="btn btn-outline-dark">
+              <Link to="/login" className="btn btn-outline-dark">
               <i class="fa-solid fa-user-plus"></i>
                 Login
-              </a>
-              <a href="" className="btn btn-outline-dark ms-2">
+              </Link>
+              <Link to="/Register" className="btn btn-outline-dark ms-2">
                 <i class="fa fa-user-plus me-1"></i>
                 Register
-              </a>
+              </Link>
               <a href="" className="btn btn-outline-dark ms-2">
                 <i class="fa fa-shopping-cart me-1"></i>
                 Cart(0)
