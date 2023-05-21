@@ -1,32 +1,36 @@
-import React from 'react'
+import React, { Fragment } from "react";
+import Navbar from "../Navbar/Navbar";
 
-const Cart = () => {
-    let cart=data;
-    let total=0;
+const Cart = ({ cart }) => {
+  let total = 0;
   return (
-    <div>
-         <table>
-        {
-            cart.map(function(product){
+    <Fragment>
+        <Navbar cart={cart} />
+        <div>
+      <table>
+        <thead>
+          {cart.map(function (product) {
+            total += product.price;
 
-                total += product.price;
-
-                return <tr>
-                  
-                    <td>{product.title}</td>
-                    <td>{product.price}</td>                    
-                </tr>
-            })
-        }
-        <tr>
+            return (
+              <tr>
+                <td>{product.title}</td>
+                <td>{product.price}</td>
+              </tr>
+            );
+          })}
+        </thead>
+        <tbody>
+          <tr>
             <td>Total Bill</td>
-            <td>
-            {total}
-            </td>
-        </tr>
-    </table>
+            <td>{total}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  )
-}
+    </Fragment>
+    
+  );
+};
 
 export default Cart;
