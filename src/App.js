@@ -10,7 +10,7 @@ import "./App.css";
 
 function App() {
   const [cart, setCart] = useState([]);
-  console.log(cart);
+  console.log(cart.title);
   return (
     <div className="App">
       <BrowserRouter>

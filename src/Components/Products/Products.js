@@ -44,9 +44,12 @@ const Products = ({ cart, addToCart }) => {
     const updatedList = data.filter((x) => x.category === cat);
     setFilter(updatedList);
   };
-  const onAddToCart = (id) => {
+  const onAddToCart = (id,image,title,price) => {
     const data = {
       id,
+      image:image,
+      title:title,
+      price:price,
       count: 1,
     };
     const newCart = [...cart, data];
@@ -109,7 +112,7 @@ const Products = ({ cart, addToCart }) => {
                   </Button>
                   <Button
                     variant="primary"
-                    onClick={() => onAddToCart(product.id)}
+                    onClick={() => onAddToCart(product.id,product.image,product.title,product.price)}
                   >
                     Add to Cart
                   </Button>
