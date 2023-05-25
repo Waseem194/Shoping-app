@@ -2,21 +2,18 @@ import React, { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareMinus,faSquarePlus} from "@fortawesome/free-solid-svg-icons";
+import { faSquareMinus, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import "./Cart.css";
-const Cart = ({ cart,count }) => {
+const Cart = ({ cart }) => {
   console.log(cart);
   let total = 0;
+  cart.forEach((product) => {
+    total += product.count * product.price;
+  });
   return (
     <>
       <Navbar cart={cart} />
-const incrementCount=()={
-set 
-
-}
-    
-   
       {cart.map(function (cart) {
         total += cart.price;
         return (
@@ -43,17 +40,11 @@ set
 
                 <div />
               </div>
+              <hr />
             </div>
-            <hr />
-          </div>
-        );
-      })}
-      <table>
-        <tr>
-          <td>Total Bill:</td>
-          <td>{total}</td>
-        </tr>
-      </table>
+          );
+        })}
+      </div>
     </>
   );
 };
