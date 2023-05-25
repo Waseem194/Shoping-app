@@ -5,12 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus,faSquarePlus} from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import "./Cart.css";
-const Cart = ({ cart }) => {
+const Cart = ({ cart,count }) => {
   console.log(cart);
   let total = 0;
   return (
     <>
       <Navbar cart={cart} />
+const incrementCount=()={
+set 
+
+}
+    
+   
       {cart.map(function (cart) {
         total += cart.price;
         return (
