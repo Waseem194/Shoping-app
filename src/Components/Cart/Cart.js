@@ -17,32 +17,31 @@ const Cart = ({ cart, setCart }) => {
   cart.forEach((product) => {
     total += product.count * product.price;
   });
-  const incremenetCount = (id) => {
+  const incrementCount = (id) => {
     const cartUpdate = cart.map((cartItem) => {
-      console.log(cartItem);
       if (cartItem.id === id) {
         return {
           ...cartItem,
           count: cartItem.count + 1,
         };
       }
-
       return cartItem;
     });
     setCart(cartUpdate);
-    console.log(cartUpdate);
   };
   const decrementCount = (id) => {
     const newCart = cart
       .map((cartItem) => {
         if (cartItem.id === id) {
           const count = cartItem.count - 1;
-          
           if (count <= 0) {
             return false;
           }
+          return {
+            ...cartItem,
+            count,
+          };
         }
-       
         return cartItem;
       })
       .filter((cartItem) => cartItem);
@@ -61,50 +60,60 @@ const Cart = ({ cart, setCart }) => {
         </tbody>
       </table>
       <hr />
-      <div className=" me-2">
+      <div className="me-2">
         {cart.map(function (cart) {
           return (
-            <>
+            <Fragment key={cart.id}>
               <table>
                 <tbody>
                   <tr>
                     <td>
-                      <img className="productImg" src={cart.image} />
+                      <img
+                        className="productImg"
+                        src={cart.image}
+                        alt="product"
+                      />
                     </td>
                   </tr>
-                  <th>
-                    <td>Title:{cart.title}</td>
-                  </th>
                   <tr>
-                    <td>Price:{cart.price}</td>
+                    <td>
+                      <span>Title:{cart.title}</span>
+                    </td>
                   </tr>
-                  Rs:<span>{cart.price}</span> x
-                  <span>
-                    {cart.count} = Total: <span>{(cart.price * cart.count).toFixed(2)}</span>
-                  </span>
                   <tr>
-                    {" "}
-                    <Button
-                      variant="success"
-                      className="me-2"
-                      onClick={()=>incremenetCount(cart.id,
-                        cart.image,
-                        cart.title,
-                        cart.price)}
-                    >
-                      <FontAwesomeIcon icon={faSquarePlus} />
-                    </Button>{" "}
-                    <Button variant="primary" onClick={()=>decrementCount(cart.id,
-                        cart.image,
-                        cart.title,
-                        cart.price)}>
-                      <FontAwesomeIcon icon={faSquareMinus} />
-                    </Button>
+                    <td>
+                      <span>Price:{cart.price}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Rs:<span>{cart.price}</span> x{" "}
+                      <span>
+                        {cart.count} = Total:{" "}
+                        <span>{(cart.price * cart.count).toFixed(2)}</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Button
+                        variant="success"
+                        className="me-2"
+                        onClick={() => incrementCount(cart.id)}
+                      >
+                        <FontAwesomeIcon icon={faSquarePlus} />
+                      </Button>{" "}
+                      <Button
+                        variant="primary"
+                        onClick={() => decrementCount(cart.id)}
+                      >
+                        <FontAwesomeIcon icon={faSquareMinus} />
+                      </Button>
+                    </td>
                   </tr>
                 </tbody>
-                <hr />
               </table>
-            </>
+            </Fragment>
           );
         })}
       </div>
