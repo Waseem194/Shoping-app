@@ -109,7 +109,7 @@ const Products = ({ cart, addToCart }) => {
         </div>
         {filter.map((product) => {
           return (
-            <div className="col-md-3 mb-4" key={product.id}>
+            <div className="col-md-3 mb-3" key={product.id}>
               <div className="card h-100 text-center p-4">
                 <img
                   src={product.image}
