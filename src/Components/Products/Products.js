@@ -44,13 +44,31 @@ const Products = ({ cart, addToCart }) => {
     const updatedList = data.filter((x) => x.category === cat);
     setFilter(updatedList);
   };
-  const onAddToCart = (id) => {
-    const data = {
-      id,
-      count: 1,
-    };
-    const newCart = [...cart, data];
-    addToCart(newCart);
+  const onAddToCart = (id, image, title, price) => {
+    let updatedCart = cart;
+    const existingProduct = cart.find((product) => product.id === id);
+    if (existingProduct) {
+      updatedCart = cart.map((product) => {
+        if (product.id === existingProduct.id) {
+          return {
+            ...product,
+            count: product.count + 1,
+          };
+        }
+        return product;
+      });
+    } else {
+      const data = {
+        id,
+        image,
+        title,
+        price,
+        count: 1,
+      };
+      updatedCart = [...cart, data];
+    }
+
+    addToCart(updatedCart);
   };
   const ShowProducts = () => {
     return (
@@ -91,7 +109,7 @@ const Products = ({ cart, addToCart }) => {
         </div>
         {filter.map((product) => {
           return (
-            <div className="col-md-3 mb-4" key={product.id}>
+            <div className="col-md-3 mb-3" key={product.id}>
               <div className="card h-100 text-center p-4">
                 <img
                   src={product.image}
@@ -109,7 +127,14 @@ const Products = ({ cart, addToCart }) => {
                   </Button>
                   <Button
                     variant="primary"
-                    onClick={() => onAddToCart(product.id)}
+                    onClick={() =>
+                      onAddToCart(
+                        product.id,
+                        product.image,
+                        product.title,
+                        product.price
+                      )
+                    }
                   >
                     Add to Cart
                   </Button>
