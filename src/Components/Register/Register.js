@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import Navbar from "../Navbar/Navbar";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import  app  from "../../Firebase";
+import app from "../../Firebase";
 import "./Register.css";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const navigate = useNavigate();
   const auth = getAuth(app);
   const [validate, setValidate] = useState(false);
   const [email, setEmail] = useState();
@@ -21,10 +25,12 @@ const Register = () => {
           email,
           password
         );
+        toast("You are register success")
       } catch (error) {
-        console.log(error); 
+        console.log(error);
       }
     } else setValidate(true);
+    navigate("/login");
   };
   return (
     <div>
@@ -32,6 +38,7 @@ const Register = () => {
         <Row className="justify-content-md-center p-5">
           <Col md={4} className=" text-bg-light">
             <Form onSubmit={onFormSubmit} noValidate validated={validate}>
+              <h1>Register</h1>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control

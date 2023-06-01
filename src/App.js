@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Home from "./Components/Home/Home";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cart from "./Components/Cart/Cart";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
@@ -25,6 +26,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <ToastContainer/>
     </div>
   );
 }
