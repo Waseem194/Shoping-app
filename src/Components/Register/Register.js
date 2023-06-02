@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import Navbar from "../Navbar/Navbar";
+import React, { useState, useEffect } from "react";
+// import Navbar from "../Navbar/Navbar";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import app from "../../Firebase";
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase";
 import "./Register.css";
 import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
-  const auth = getAuth(app);
   const [validate, setValidate] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
   const onFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -32,6 +32,15 @@ const Register = () => {
     } else setValidate(true);
     navigate("/login");
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // user is still logged in
+        navigate("/");
+      }
+    });
+  }, [navigate]);
   return (
     <div>
       <Container>

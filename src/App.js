@@ -12,7 +12,6 @@ import "./App.css";
 
 function App() {
   const [cart, setCart] = useState([]);
-
   return (
     <div className="App">
       <BrowserRouter>

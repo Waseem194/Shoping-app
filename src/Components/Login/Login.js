@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { Button, Form, Col, Row, Container } from "react-bootstrap";
-
-import { Link,useNavigate } from "react-router-dom";
-import app from "../../Firebase";
-import "./Login.css";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { auth } from "../../Firebase";
+import "./Login.css";
+
 const Login = () => {
   const navigate = useNavigate();
-  const auth = getAuth(app);
   const [validate, setValidate] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
   const onFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -20,15 +19,29 @@ const Login = () => {
     if (isValid) {
       console.log(email, password);
       try {
-        const user = await signInWithEmailAndPassword(auth, email, password);
-        toast("You are login success")
+        await signInWithEmailAndPassword(auth, email, password);
+        toast("You are login success");
+        navigate("/");
       } catch (error) {
-        console.log(error);
+        if (error.code === "auth/too-many-requests") {
+          toast.error("Too many attemps, try later.");
+        } else if (error.code === "auth/wrong-password") {
+          toast.error("You have entered a wrong password.");
+        } else {
+          toast.error("Login failed.");
+        }
       }
     } else setValidate(true);
-    navigate("/")
   };
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // user is still logged in
+        navigate("/");
+      }
+    });
+  }, [navigate]);
   return (
     <>
       <Container>
