@@ -47,6 +47,12 @@ const Navbar = ({ cart }) => {
               </li>
             </ul>
             <div className="buttons">
+              <Button variant="primary">
+              <Link>
+              
+              </Link>
+              Logout
+              </Button>
               <Link to="/login" className="btn btn-outline-dark">
                 <FontAwesomeIcon icon={faUser} />
                 Login

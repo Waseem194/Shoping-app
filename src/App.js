@@ -23,6 +23,7 @@ function App() {
             path="/cart"
             element={<Cart cart={cart} setCart={setCart} />}
           />
+         
         </Routes>
       </BrowserRouter>
       <ToastContainer/>
